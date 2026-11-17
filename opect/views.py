@@ -155,15 +155,27 @@ def venue_display_name(name: str | None) -> str:
     return _venue_display(name)
 
 
+_TZ_HOURS = {"Asia/Shanghai": 8, "Asia/Hong_Kong": 8, "Asia/Taipei": 8, "Asia/Tokyo": 9, "Asia/Seoul": 9, "UTC": 0}
+
+
+def site_timezone():
+    """Fixed-offset timezone from config, so GitHub runners (UTC) render Beijing time."""
+    try:
+        name = load_config()["site"].get("timezone", "Asia/Shanghai")
+    except Exception:
+        name = "Asia/Shanghai"
+    return timezone(timedelta(hours=_TZ_HOURS.get(name, 8)))
+
+
 def sync_time_label(value: str | None) -> str:
-    """Human-friendly timestamp in the browser's local timezone (Asia/Shanghai)."""
+    """Human-friendly timestamp in the site's timezone (default Asia/Shanghai)."""
     if not value:
         return "尚未同步"
     try:
         dt = datetime.fromisoformat(value)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
-        dt = dt.astimezone()
+        dt = dt.astimezone(site_timezone())
     except ValueError:
         return T.rel_date(value[:10])
     delta = (_today() - dt.date()).days
