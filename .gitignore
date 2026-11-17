@@ -1,0 +1,12 @@
+# 运行时产物
+data/
+logs/
+dist/
+docs/
+tools/
+public-url.html
+__pycache__/
+*.pyc
+
+# 本地脚本
+*.log
