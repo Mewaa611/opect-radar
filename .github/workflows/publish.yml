@@ -1,0 +1,69 @@
+name: Update OPECT radar
+
+on:
+  schedule:
+    # 每天 22:00 UTC（北京时间次日 06:00）自动抓取并发布
+    - cron: "0 22 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  # 用户站点（<name>.github.io）挂在根路径，普通仓库挂在 /<repo>/ 下
+  BASE_PATH: ${{ endsWith(github.event.repository.name, '.github.io') && '' || format('/{0}', github.event.repository.name) }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore literature database
+        uses: actions/cache/restore@v4
+        with:
+          path: data/opect.db
+          key: opect-db-${{ github.run_id }}
+          restore-keys: |
+            opect-db-
+
+      - name: Sync literature
+        run: python -m opect.sync_once --quiet
+
+      - name: Build static site
+        run: python -m opect.static_site --db data/opect.db --out public --base "$BASE_PATH"
+
+      - name: Save literature database
+        uses: actions/cache/save@v4
+        with:
+          path: data/opect.db
+          key: opect-db-${{ github.run_id }}
+
+      - name: Report size
+        run: du -sh public && find public -name "*.html" | wc -l
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
