@@ -263,7 +263,7 @@ def build(db_path: str | Path, out_dir: str | Path, base: str = "") -> dict[str,
     (out / "paper").mkdir(parents=True, exist_ok=True)
     (out / "static").mkdir(parents=True, exist_ok=True)
 
-    stamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+    stamp = datetime.now(views.site_timezone()).strftime("%Y-%m-%d %H:%M")
     engine = _stub_engine()
 
     for name in ("style.css", "static.js", "favicon.svg"):
