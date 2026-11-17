@@ -22,6 +22,12 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # 备用镜像：只有配置了对应的 secret 才会执行（未配置则自动跳过）
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
     steps:
       - uses: actions/checkout@v4
 
@@ -51,6 +57,26 @@ jobs:
 
       - name: Report size
         run: du -sh public && find public -name "*.html" | wc -l
+
+      # 镜像站挂在域名根路径，需要重新生成一份 base="" 的版本
+      - name: Build mirror copy
+        if: env.CLOUDFLARE_API_TOKEN != '' || env.NETLIFY_AUTH_TOKEN != ''
+        run: python -m opect.static_site --db data/opect.db --out public-mirror --base ""
+
+      # ---- 备用镜像 1：Cloudflare Pages（访问 https://opect-radar.pages.dev）----
+      - name: Ensure Cloudflare Pages project
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        continue-on-error: true
+        run: npx --yes wrangler@3 pages project create opect-radar --production-branch=main
+
+      - name: Deploy to Cloudflare Pages
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx --yes wrangler@3 pages deploy public-mirror --project-name=opect-radar --branch=main --commit-dirty=true
+
+      # ---- 备用镜像 2：Netlify（访问 https://<site>.netlify.app）----
+      - name: Deploy to Netlify
+        if: env.NETLIFY_AUTH_TOKEN != ''
+        run: npx --yes netlify-cli@17 deploy --prod --dir=public-mirror --site "$NETLIFY_SITE_ID" --message "scheduled update"
 
       - uses: actions/configure-pages@v5
 
