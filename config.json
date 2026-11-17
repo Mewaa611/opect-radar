@@ -1,0 +1,453 @@
+{
+  "site": {
+    "title": "OPECT 文献雷达",
+    "subtitle": "有机光电化学晶体管 · 实时文献追踪",
+    "lang": "zh-CN",
+    "timezone": "Asia/Shanghai",
+    "items_per_page": 20
+  },
+  "sync": {
+    "contact_email": "",
+    "auto_sync": true,
+    "interval_minutes": 360,
+    "on_start": true,
+    "initial_lookback_days": 3650,
+    "overlap_days": 45,
+    "min_year": 2015,
+    "max_pages_per_query": 6,
+    "per_page": 100,
+    "sources": {
+      "openalex": true,
+      "crossref": true,
+      "pubmed": true,
+      "arxiv": false
+    }
+  },
+  "relevance": {
+    "include_threshold": 30.0,
+    "core_threshold": 70.0,
+    "store_threshold": 18,
+    "weights": {
+      "title": 1.0,
+      "abstract": 0.6,
+      "keywords": 0.8,
+      "venue": 0.35
+    }
+  },
+  "queries": {
+    "openalex": [
+      "\"photoelectrochemical transistor\"",
+      "\"opect\"",
+      "\"organic photoelectrochemical transistor\"",
+      "\"photoelectrochemical\" AND \"organic electrochemical transistor\"",
+      "\"photoresponsive\" AND \"organic electrochemical transistor\"",
+      "\"photoactive gate\"",
+      "\"photogate\" AND \"transistor\"",
+      "\"photoelectrochemical\" AND \"PEDOT:PSS\"",
+      "\"photoelectrochemical\" AND \"transconductance\""
+    ],
+    "crossref": [
+      "organic photoelectrochemical transistor",
+      "photoelectrochemical transistor biosensor",
+      "OPECT photoelectrochemical",
+      "photoresponsive organic electrochemical transistor"
+    ],
+    "pubmed": [
+      "\"photoelectrochemical transistor\"",
+      "\"organic photoelectrochemical transistor\"",
+      "OPECT[All Fields] AND (biosensing OR transistor)",
+      "photoelectrochemical[All Fields] AND organic electrochemical transistor"
+    ],
+    "arxiv": [
+      "all:\"photoelectrochemical transistor\"",
+      "all:\"organic electrochemical transistor\" AND all:photoresponsive"
+    ]
+  },
+  "keywords": [
+    {
+      "label": "OPECT",
+      "weight": 100,
+      "title": 1.0,
+      "phrases": [
+        "opect",
+        "opects",
+        "organic photoelectrochemical transistor",
+        "organic photoelectrochemical transistors",
+        "organic photoelectrochemical transistor-based",
+        "photoelectrochemical transistor",
+        "photoelectrochemical transistors",
+        "photoelectrochemical organic transistor",
+        "opect-based",
+        "opect biosensor",
+        "opect aptasensor",
+        "photoelectrochemical synaptic transistor",
+        "photoelectrochemical transistor biosensor",
+        "photoelectrochemical transistor aptasensor",
+        "光电化学晶体管",
+        "有机光电化学晶体管"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "光敏栅 / 光电化学栅",
+      "weight": 42,
+      "title": 1.0,
+      "phrases": [
+        "photoactive gate",
+        "photosensitive gate",
+        "photogate",
+        "photo-gate",
+        "photoelectrochemical gate",
+        "photoelectrode",
+        "photoanode",
+        "photocathode",
+        "light-addressable",
+        "光敏栅",
+        "光电化学栅",
+        "光阳极",
+        "光阴极"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "光电化学",
+      "weight": 30,
+      "title": 1.0,
+      "phrases": [
+        "photoelectrochemical",
+        "photoelectrochemistry",
+        "photoelectrocatalytic",
+        "光电化学",
+        "光电催化"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "有机电化学晶体管",
+      "weight": 26,
+      "title": 1.0,
+      "phrases": [
+        "organic electrochemical transistor",
+        "organic electrochemical transistors",
+        "organic transistors",
+        "organic transistor",
+        "iontronic",
+        "oect",
+        "oects",
+        "有机电化学晶体管",
+        "有机晶体管"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "有机半导体/聚合物",
+      "weight": 16,
+      "title": 0.9,
+      "phrases": [
+        "organic semiconductor",
+        "organic semiconductors",
+        "conjugated polymer",
+        "conjugated polymers",
+        "semiconducting polymer",
+        "polymer",
+        "polymers",
+        "pedot",
+        "poly(3,4-ethylenedioxythiophene)",
+        "n-type",
+        "p-type",
+        "small molecule",
+        "有机半导体",
+        "共轭聚合物"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "混合离子-电子导体",
+      "weight": 18,
+      "title": 0.9,
+      "phrases": [
+        "mixed ionic-electronic",
+        "mixed ionic electronic",
+        "mixed conductor",
+        "mixed conductors",
+        "omiec",
+        "omiecs",
+        "pedot:pss",
+        "pedot-pss",
+        "pedot pss"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "光响应 / 光调制",
+      "weight": 16,
+      "title": 0.9,
+      "phrases": [
+        "photoresponsive",
+        "photo-responsive",
+        "light-responsive",
+        "photo-modulated",
+        "photomodulated",
+        "photo-induced",
+        "light-induced",
+        "light-gated",
+        "photocontrolled",
+        "photo-controlled",
+        "optically modulated",
+        "optical modulation",
+        "light stimulation",
+        "光响应",
+        "光调控",
+        "光调制"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "晶体管 / 跨导",
+      "weight": 14,
+      "title": 0.9,
+      "phrases": [
+        "transistor",
+        "transistors",
+        "transconductance",
+        "transfer curve",
+        "output curve",
+        "threshold voltage",
+        "晶体管",
+        "跨导"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "生物传感",
+      "weight": 14,
+      "title": 0.9,
+      "phrases": [
+        "biosensor",
+        "biosensing",
+        "bioanalysis",
+        "bioassay",
+        "aptasensor",
+        "immunosensor",
+        "photoelectrochemical biosensor",
+        "biomarker detection",
+        "生物传感",
+        "适配体",
+        "免疫传感"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "光电突触 / 神经形态",
+      "weight": 14,
+      "title": 0.9,
+      "phrases": [
+        "synapse",
+        "synaptic",
+        "neuromorphic",
+        "long-term potentiation",
+        "short-term plasticity",
+        "paired-pulse facilitation",
+        "神经形态",
+        "突触"
+      ],
+      "tokens": []
+    },
+    {
+      "label": "光敏材料 / 异质结",
+      "weight": 10,
+      "title": 0.9,
+      "phrases": [
+        "heterojunction",
+        "quantum dot",
+        "quantum dots",
+        "perovskite",
+        "bivo4",
+        "bi2s3",
+        "zno",
+        "tio2",
+        "cds",
+        "mxene",
+        "mof",
+        "cof",
+        "hof",
+        "z-scheme",
+        "photocurrent",
+        "charge separation",
+        "异质结",
+        "量子点",
+        "钙钛矿"
+      ],
+      "tokens": []
+    }
+  ],
+  "negative_keywords": [
+    "positron emission tomography",
+    "optical coherence tomography",
+    "opec",
+    "opec+",
+    "ophthalmology",
+    "oct angiography",
+    "optical imaging",
+    "photoacoustic tomography"
+  ],
+  "topics": [
+    {
+      "label": "生物传感",
+      "color": "teal",
+      "any": [
+        "biosensor",
+        "biosensing",
+        "aptasensor",
+        "immunosensor",
+        "bioanalysis",
+        "biomarker",
+        "aptamer",
+        "biomolecular",
+        "生物传感",
+        "适配体",
+        "免疫传感",
+        "核酸检测"
+      ]
+    },
+    {
+      "label": "光电突触",
+      "color": "violet",
+      "any": [
+        "synapse",
+        "synaptic",
+        "plasticity",
+        "potentiation",
+        "paired-pulse",
+        "突触",
+        "可塑性"
+      ]
+    },
+    {
+      "label": "神经形态计算",
+      "color": "amber",
+      "any": [
+        "neuromorphic",
+        "neural network",
+        "in-sensor computing",
+        "convolution",
+        "image recognition",
+        "神经形态",
+        "卷积"
+      ]
+    },
+    {
+      "label": "光栅/光电极",
+      "color": "blue",
+      "any": [
+        "photoactive gate",
+        "photosensitive gate",
+        "photogate",
+        "photoelectrode",
+        "photoanode",
+        "photocathode",
+        "光栅",
+        "光电极"
+      ]
+    },
+    {
+      "label": "沟道材料",
+      "color": "green",
+      "any": [
+        "channel material",
+        "channel layer",
+        "channel conductance",
+        "pedot:pss",
+        "omiec",
+        "mixed conductor",
+        "mixed ionic",
+        "沟道",
+        "混合导体"
+      ]
+    },
+    {
+      "label": "异质结/能带",
+      "color": "orange",
+      "any": [
+        "heterojunction",
+        "z-scheme",
+        "band alignment",
+        "charge separation",
+        "异质结",
+        "能带"
+      ]
+    },
+    {
+      "label": "量子点",
+      "color": "rose",
+      "any": [
+        "quantum dot",
+        "quantum dots",
+        "qds",
+        "cdse",
+        "pbs",
+        "pbo",
+        "zns",
+        "量子点"
+      ]
+    },
+    {
+      "label": "框架材料",
+      "color": "cyan",
+      "any": [
+        "mof",
+        "cof",
+        "hof",
+        "framework",
+        "框架"
+      ]
+    },
+    {
+      "label": "二维材料",
+      "color": "indigo",
+      "any": [
+        "mxene",
+        "graphene",
+        "rgo",
+        "2d material",
+        "二维"
+      ]
+    },
+    {
+      "label": "近红外/宽带",
+      "color": "red",
+      "any": [
+        "near-infrared",
+        "nir",
+        "broadband",
+        "uv-vis",
+        "近红外",
+        "宽带"
+      ]
+    },
+    {
+      "label": "柔性/可穿戴",
+      "color": "lime",
+      "any": [
+        "flexible",
+        "stretchable",
+        "wearable",
+        "fiber",
+        "柔性",
+        "可穿戴"
+      ]
+    },
+    {
+      "label": "自供能/零偏压",
+      "color": "yellow",
+      "any": [
+        "self-powered",
+        "zero bias",
+        "zero-bias",
+        "self-power",
+        "自供能",
+        "零偏压"
+      ]
+    }
+  ]
+}
